@@ -1,0 +1,17 @@
+@import "import-styles.css";
+
+body {
+  text-align: center;
+}
+
+h1 {
+  font-size:72px;
+}
+
+header {
+  background-color: white;
+}
+
+p {
+  font-size: 20px;
+}

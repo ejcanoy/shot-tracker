@@ -1,0 +1,40 @@
+@import "css/import-styles.css";
+
+header {
+  background-color: white;
+}
+
+h1 {
+  font-size: 90px;
+  color: black;
+}
+
+h2 {
+  font-size: 53px;
+}
+
+h3 {
+  font-size: 20px;
+  color: black;
+}
+
+p {
+  color: black;
+  background: white;
+  font-size: 20px;
+}
+
+table {
+  color: black;
+}
+
+a:link {
+  color: blue;
+}
+
+a:visited {
+  color: lightblue;
+}
+a:hover {
+  color: 3blue;
+}

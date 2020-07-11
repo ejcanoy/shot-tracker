@@ -1,0 +1,128 @@
+/* The version of Bourbon used in this Pen was 4.* */
+@import "bourbon";
+$changer:1.1;
+$court-width: 72vw;
+$court-height: 44vw;
+$court-vertical-bondery: 3vw;
+$court-horizontal-bondery: 5vw;
+
+$court-border: .6vw;
+
+$display-moc: block;
+$display-moc: none;
+
+*{
+  border:0;
+  padding:0;
+  margin:0;
+}
+
+.court{
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  > main {
+    box-sizing: border-box;
+    border-width: $court-vertical-bondery $court-horizontal-bondery;
+    border-style: solid;
+    border-color: brown;
+    @include display(flex);
+    @include align-items(center);
+    > div.team-field{
+      width: $court-width/2;
+      height: $court-height;
+      box-sizing: border-box;
+      background: grey;
+      border-width: $court-border $court-border/2 $court-border $court-border;
+      border-style: solid;
+      border-color:white;
+      overflow: hidden;
+      @include display(inline-flex);
+      @include align-items(center);
+      @include justify-content(space-between);
+      &:after{
+        content:'';
+        height:10vw;
+        width:5vw;
+        border-radius: 10vw 0 0 10vw;
+        border-width: $court-border 0 $court-border $court-border;
+        border-style: solid;
+        border-color: white;
+      }
+      &:nth-of-type(2){
+        @include transform(rotate(180deg));
+      }
+      > div.three-points-arc{
+        box-sizing: border-box;
+        position: relative;
+        right: 19.5%;
+        border-width: $court-border $court-border $court-border 0;
+        border-style: solid;
+        border-color: white;
+        @include border-right-radius(55%);
+        @include size(80%);
+        @include background(green);
+        @include display(flex);
+        @include align-items(center);
+        > div.free-trows{
+          box-sizing: border-box;
+          height: 11vw;
+          width: 23vw;
+          border: $court-border solid white;
+          box-sizing: border-box;
+          position:relative;
+          @include display(flex);
+          @include align-items(center);
+          @include justify-content(flex-end);
+          >  div.free-trows-circle{
+            box-sizing: border-box;
+            transform: rotate(45deg);
+            margin-right: -5.3vw;
+            @include size(11vw);
+            border-radius: 50%;
+            border-width: $court-border;
+            border-style: solid solid dashed dashed;
+            border-color: white;
+            position: relative;
+          }
+          > span {
+            box-sizing: border-box;
+            position:absolute;
+            height: 1vw;
+            width: 3.3vw;
+            border-width: 0 $court-border;
+            border-style: solid;
+            border-color: white;
+            &:nth-of-type(1){
+              bottom:100%;
+              right:1vw;
+            }
+            &:nth-of-type(2){
+              bottom:100%;
+              right:6.6vw;
+            }
+            &:nth-of-type(3){
+              top:100%;
+              right:1vw;
+            }
+            &:nth-of-type(4){
+              top:100%;
+              right:6.6vw;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.moc{
+  display: $display-moc;
+  position:absolute;
+  top:8px;
+  background:url("https://image-gr.s3.envato.com/files/73922116/basketball_court.jpg");  
+  background-size: contain;
+  background-repeat: no-repeat;
+  @include size($court-width $court-height);
+  opacity:.3;
+}
