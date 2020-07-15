@@ -111,7 +111,6 @@ query.on('value', function(dataSnapshot) {
 // loads google charts
 google.charts.load('current', {packages: ['corechart', 'line']});
 
-var query = rootRef.orderByKey();
 query.on('value', function(dataSnapshot) {
   google.charts.setOnLoadCallback(drawBackgroundColor => {
     var data = new google.visualization.DataTable();
