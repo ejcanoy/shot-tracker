@@ -17,12 +17,12 @@ firebase.analytics();
 const database = firebase.database();
 const rootRef = database.ref('shot');
 
-const date = document.getElementById('date');
-const shotsMade = document.getElementById('shotsMade');
-const shotsAttempted = document.getElementById('shotsAttempted');
-const submitBtn = document.getElementById('submitBtn');
-const updateBtn = document.getElementById('updateBtn');
-const removeBtn = document.getElementById('removeBtn');
+// const date = document.getElementById('date');
+// const shotsMade = document.getElementById('shotsMade');
+// const shotsAttempted = document.getElementById('shotsAttempted');
+// const submitBtn = document.getElementById('submitBtn');
+// const updateBtn = document.getElementById('updateBtn');
+// const removeBtn = document.getElementById('removeBtn');
 
 // creates a table that displays all the saved past performances
 const query = rootRef.orderByKey();
