@@ -18,6 +18,7 @@ const database = firebase.database();
 const rootRef = database.ref('shot');
 
 const date = document.getElementById('date');
+const time = document.getElementById('time');
 const shotsMade = document.getElementById('shotsMade');
 const shotsAttempted = document.getElementById('shotsAttempted');
 const submitBtn = document.getElementById('submitBtn');
@@ -28,7 +29,7 @@ const removeBtn = document.getElementById('removeBtn');
 submitBtn.addEventListener('click', (e) => {
   e.preventDefault();
 
-  rootRef.child(date.value).set({
+  rootRef.child(date.value + " " + time.value).set({
     shotsM: shotsMade.value,
     shotsA: shotsAttempted.value,
     shotsP: (shotsMade.value / shotsAttempted.value) * 100
@@ -45,7 +46,7 @@ updateBtn.addEventListener('click', (e) => {
   };
 
   const updates = {};
-  updates['/shot/' + date.value] = newData;
+  updates['/shot/' + date.value + " " + time.value] = newData;
   database.ref().update(updates);
 });
 
@@ -53,7 +54,7 @@ updateBtn.addEventListener('click', (e) => {
 // when remove button is clicked it removes the chosen performance
 removeBtn.addEventListener('click', e => {
   e.preventDefault();
-  rootRef.child(date.value).remove()
+  rootRef.child(date.value + " " + time.value).remove()
   .then(() => {
     window.alert('performance removed');
   }).catch(error => {
