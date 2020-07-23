@@ -135,10 +135,19 @@ query.on('value', function(dataSnapshot) {
       vAxis: {
         title: 'Shot Percentage'
       },
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+      colors : ['red']
     };
 
-    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
+    function drawChart() {
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+
+    $(window).resize(function(){
+       drawChart();
+    });
   });
 })
+
+// Reminder: you need to put https://www.google.com/jsapi in the head of your document or as an external resource on codepen //

@@ -13,15 +13,16 @@
     <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-analytics.js"></script>
-
-    <title>Shot Tracker</title>
+    <link href="css/cssBasic.css" rel="stylesheet">
     <link rel="icon" href="images/shotTrackerLogo.png">
+    <title>Shot Tracker</title>
+
   </head>
   <body>
 
     <!-- navbar -->
     <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-dark mx-auto">
+      <nav class="navbar navbar-expand-lg navbar-light bg-secondary mx-auto">
         <a class="shotTrackerLogo-brand mx-auto" href="index.html">
           <img src="images/shotTrackerLogo.png" width="60" height="60" alt="" loading="lazy">
         </a>
@@ -40,12 +41,13 @@
     <!-- /navbar -->
 
     <div class="container">
-      <h1 class="mb-4 h1">Track your Shot</h1>
+      <h1 class="mb-4">Track your Shot</h1>
       <p>Use this tool to keep track of your performances</p>
     </div>
 
+    <!-- form -->
       <main class="container">
-        <form class="mb-5 card p-3 bg-secondary">
+        <form class="mb-5 card p-4 bg-secondary">
           <div class="form-group">
             <label for="date">Date</label>
             <input type="date" class="form-control" id="date">
@@ -69,6 +71,7 @@
           </div>
         </form>
       </main>
+    <!-- /form -->
 
       <div class="container mb-4">
         <h3>Past Performances</h3>
@@ -91,7 +94,11 @@
       <!-- Chart -->
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-      <div class="container mb-4" id="chart_div"></div>
+      <!-- <div class="container mb-4" id="chart_div"></div> -->
+
+      <div class="container">
+        <div id="chart_div" class="chart"></div>
+      </div>
 
 
     <script src="script.js"></script>

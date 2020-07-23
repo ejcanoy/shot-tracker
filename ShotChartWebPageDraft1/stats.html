@@ -8,39 +8,44 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-analytics.js"></script>
     <link href="css/cssBasic.css" rel="stylesheet">
+    <link rel="icon" href="images/shotTrackerLogo.png">
     <title>Shot Tracker</title>
   </head>
   <body>
 
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-      <a class="shotTrackerLogo-brand" href="index.html">
-        <img src="images/shotTrackerLogoWhiteBackground.png" width="60" height="60" alt="" loading="lazy">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="stats.html">Statistics<span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <!-- /navbar -->
     <div class="container">
-      <h1 class="mb-4">Track your Shot</h1>
+      <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+        <a class="shotTrackerLogo-brand" href="index.html">
+          <img src="images/shotTrackerLogo.png" width="60" height="60" alt="" loading="lazy">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="stats.html">Statistics<span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <!-- /navbar -->
+
+    <div class="container">
+      <h1 class="mb-4">Statistics</h1>
 
       <div class="container mb-4">
         <h3>Past Performances</h3>
 
-        <table class="table table-dark">
+        <table class="table table-striped table-secondary">
           <thead>
             <tr>
               <th scope="col">Date</th>
@@ -62,5 +67,30 @@
 
 
     <script src="statscript.js"></script>
+
+    <div class="courtbg">
+      <!-- court things -->
+          <svg id="basketball" x="0px" y="0px" viewBox="0 0 1280 1024">
+            <rect x="25" y="31" class="court" width="1228" height="771"></rect>
+            <rect x="25" y="31" class="zone" width="180" height="426"/>
+            <rect x="1073" y="31" class="zone" width="180" height="426"/>
+            <rect x="205" y="31" class="zone" width="234" height="250"/>
+            <rect x="839" y="31" class="zone" width="234" height="250"/>
+            <rect x="439" y="31" class="zone" width="200" height="250"/>
+            <rect x="439" y="281" class="zone" width="200" height="250"/>
+            <path class="zone" d="M439,687.6v114.5h400v-115c-61,28.4-128.9,44.3-200.5,44.3C567.3,731.5,499.7,715.8,439,687.6z"/>
+            <path class="zone" d="M439,531v156.6c60.7,27.8,128.3,43.4,199.5,43.4c71.6,0,139.5-15.7,200.5-43.8V531H439z"/>
+            <path class="zone" d="M205,457h0.1c0-0.1-0.1-0.2-0.1-0.3V457z"/>
+            <path class="zone" d="M205,281v175.7c0,0.1,0.1,0.2,0.1,0.3C253.5,558.7,336.5,640.7,439,687.6V531v-74V281H205z"/>
+            <path class="zone" d="M1073,457v-2.4c-0.4,0.8-0.8,1.6-1.2,2.4H1073z"/>
+            <path class="zone" d="M839,281v176v74v156.2c102-47,184.7-128.8,232.8-230.2c0.4-0.8,0.8-1.6,1.2-2.4V281H839z"/>
+            <rect x="639" y="281" class="zone" width="200" height="250"/>
+            <rect x="639" y="31" class="zone" width="200" height="250"/>
+          </svg>
+
+        <!-- /court things -->      
+    </div>
+
+
   </body>
 </html>

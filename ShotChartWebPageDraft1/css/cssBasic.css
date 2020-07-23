@@ -38,3 +38,37 @@ a:visited {
 a:hover {
   color: 3blue;
 }
+
+.chart {
+  width: 100%;
+  min-height: 450px;
+}
+
+.row {
+  margin:0 !important;
+}
+
+/* cout things */
+
+.courtbg {
+  background: #2B2B2B;
+}
+
+.court {
+  fill: #7A7A7A;
+  stroke: #2B2B2B;
+  stroke-width: 4;
+  stroke-miterlimit: 10;
+}
+
+.zone {
+  fill: #7A7A7A;
+  stroke: #2B2B2B;
+  stroke-width: 4;
+  stroke-miterlimit: 10;
+}
+
+.zone:hover {
+  fill: #FEA400;
+  cursor: pointer;
+}
