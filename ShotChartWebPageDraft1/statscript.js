@@ -29,19 +29,31 @@ const removeBtn = document.getElementById('removeBtn');
 const query = rootRef.orderByKey();
 let table = document.getElementById('table-body');
 query.on('value', function(dataSnapshot) {
-  table.innerHTML = ''
+  let totalMakes = 0;
+  let totalAttempts = 0;
+  const totalChildren = dataSnapshot.numChildren();
+  table.innerHTML = '';
   dataSnapshot.forEach(function(childSnapshot) {
     const key = childSnapshot.key;
     const childData = childSnapshot.val();
+    totalMakes += Number(childData.shotsM);
+    totalAttempts += Number(childData.shotsA);
     const row = `<tr>
                 <td>${key}</td>
                 <td>${childData.shotsM}</td>
                 <td>${childData.shotsA}</td>
                 <td>${childData.shotsP}</td>
-              </tr>`
+              </tr>`;
 
-    table.innerHTML += row
+    table.innerHTML += row;
   })
+  const avgRow = `<tr>
+                    <td class="font-weight-bold">All Performances</th>
+                    <td class="font-weight-bold">${totalMakes / totalChildren}</th>
+                    <td class="font-weight-bold">${totalAttempts / totalChildren}</th>
+                    <td class="font-weight-bold">${(totalMakes / totalAttempts * 100).toFixed(2)}</th>
+                  </tr>`
+  table.innerHTML += avgRow;
 })
 
 // var query = rootRef.orderByKey();

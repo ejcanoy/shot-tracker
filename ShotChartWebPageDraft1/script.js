@@ -84,9 +84,6 @@ query.on('value', function(dataSnapshot) {
 
     table.innerHTML += row;
   })
-  console.log(totalMakes);
-  console.log(totalAttempts);
-  console.log(totalChildren)
   const avgRow = `<tr>
                     <td class="font-weight-bold">All Performances</th>
                     <td class="font-weight-bold">${totalMakes / totalChildren}</th>
