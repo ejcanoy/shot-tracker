@@ -63,11 +63,11 @@ removeBtn.addEventListener('click', e => {
 })
 
 // creates a table that displays all the saved past performances
-let totalMakes = 0;
-let totalAttempts = 0;
 const query = rootRef.orderByKey();
 let table = document.getElementById('table-body');
 query.on('value', function(dataSnapshot) {
+  let totalMakes = 0;
+  let totalAttempts = 0;
   const totalChildren = dataSnapshot.numChildren();
   table.innerHTML = '';
   dataSnapshot.forEach(function(childSnapshot) {
@@ -84,6 +84,9 @@ query.on('value', function(dataSnapshot) {
 
     table.innerHTML += row;
   })
+  console.log(totalMakes);
+  console.log(totalAttempts);
+  console.log(totalChildren)
   const avgRow = `<tr>
                     <td class="font-weight-bold">All Performances</th>
                     <td class="font-weight-bold">${totalMakes / totalChildren}</th>
@@ -92,20 +95,6 @@ query.on('value', function(dataSnapshot) {
                   </tr>`
   table.innerHTML += avgRow;
 })
-
-// let totalMakes = 0;
-// let totalAttempts = 0;
-// query.on('value', function(dataSnapshot) {
-//   console.log(dataSnapshot.numChildren())
-//   dataSnapshot.forEach(function(childSnapshot) {
-//     const childData = childSnapshot.val();
-//     totalMakes += Number(childData.shotsM);
-//     totalAttempts += Number(childData.shotsA);
-//   })
-//   console.log(totalMakes);
-//   console.log(totalAttempts);
-//   console.log(totalMakes/totalAttempts * 100);
-// })
 
 // var query = rootRef.orderByKey();
 // let table = document.getElementById('table-body');
