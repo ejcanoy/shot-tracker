@@ -17,6 +17,7 @@ firebase.analytics();
 const database = firebase.database();
 const rootRef = database.ref('shot');
 
+
 const date = document.getElementById('date');
 const shotsMade = document.getElementById('shotsMade');
 const shotsAttempted = document.getElementById('shotsAttempted');

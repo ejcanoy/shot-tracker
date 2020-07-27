@@ -16,13 +16,13 @@ firebase.analytics();
 
 const database = firebase.database();
 const rootRef = database.ref('shot');
+const totalRef = database.ref('total')
 
 const date = document.getElementById('date');
 const time = document.getElementById('time');
 const shotsMade = document.getElementById('shotsMade');
 const shotsAttempted = document.getElementById('shotsAttempted');
 const submitBtn = document.getElementById('submitBtn');
-const updateBtn = document.getElementById('updateBtn');
 const removeBtn = document.getElementById('removeBtn');
 
 // when submit button is clicked it adds the values to the data
@@ -37,18 +37,18 @@ submitBtn.addEventListener('click', (e) => {
 });
 
 // when update button is clicked it updates the values for the chosen date
-updateBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  const newData = {
-    shotsM: shotsMade.value,
-    shotsA: shotsAttempted.value,
-    shotsP: (shotsMade.value / shotsAttempted.value) * 100
-  };
-
-  const updates = {};
-  updates['/shot/' + date.value + " " + time.value] = newData;
-  database.ref().update(updates);
-});
+// updateBtn.addEventListener('click', (e) => {
+//   e.preventDefault();
+//   const newData = {
+//     shotsM: shotsMade.value,
+//     shotsA: shotsAttempted.value,
+//     shotsP: (shotsMade.value / shotsAttempted.value) * 100
+//   };
+//
+//   const updates = {};
+//   updates['/shot/' + date.value + " " + time.value] = newData;
+//   database.ref().update(updates);
+// });
 
 
 // when remove button is clicked it removes the chosen performance
@@ -62,25 +62,50 @@ removeBtn.addEventListener('click', e => {
   })
 })
 
-
 // creates a table that displays all the saved past performances
+let totalMakes = 0;
+let totalAttempts = 0;
 const query = rootRef.orderByKey();
 let table = document.getElementById('table-body');
 query.on('value', function(dataSnapshot) {
-  table.innerHTML = ''
+  const totalChildren = dataSnapshot.numChildren();
+  table.innerHTML = '';
   dataSnapshot.forEach(function(childSnapshot) {
     const key = childSnapshot.key;
     const childData = childSnapshot.val();
+    totalMakes += Number(childData.shotsM);
+    totalAttempts += Number(childData.shotsA);
     const row = `<tr>
                 <td>${key}</td>
                 <td>${childData.shotsM}</td>
                 <td>${childData.shotsA}</td>
                 <td>${childData.shotsP}</td>
-              </tr>`
+              </tr>`;
 
-    table.innerHTML += row
+    table.innerHTML += row;
   })
+  const avgRow = `<tr>
+                    <td class="font-weight-bold">All Performances</th>
+                    <td class="font-weight-bold">${totalMakes / totalChildren}</th>
+                    <td class="font-weight-bold">${totalAttempts / totalChildren}</th>
+                    <td class="font-weight-bold">${(totalMakes / totalAttempts * 100).toFixed(2)}</th>
+                  </tr>`
+  table.innerHTML += avgRow;
 })
+
+// let totalMakes = 0;
+// let totalAttempts = 0;
+// query.on('value', function(dataSnapshot) {
+//   console.log(dataSnapshot.numChildren())
+//   dataSnapshot.forEach(function(childSnapshot) {
+//     const childData = childSnapshot.val();
+//     totalMakes += Number(childData.shotsM);
+//     totalAttempts += Number(childData.shotsA);
+//   })
+//   console.log(totalMakes);
+//   console.log(totalAttempts);
+//   console.log(totalMakes/totalAttempts * 100);
+// })
 
 // var query = rootRef.orderByKey();
 // let table = document.getElementById('table-body');
@@ -139,14 +164,8 @@ query.on('value', function(dataSnapshot) {
       colors : ['red']
     };
 
-    function drawChart() {
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-      chart.draw(data, options);
-    }
-
-    $(window).resize(function(){
-       drawChart();
-    });
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
   });
 })
 
