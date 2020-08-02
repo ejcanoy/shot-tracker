@@ -186,6 +186,7 @@ a:hover {
   -ms-flex-align: center;
 }
 .court > main > div.team-field > div.three-points-arc > div.free-trows {
+  background-color: red;
   box-sizing: border-box;
   height: 11vw;
   width: 23vw;

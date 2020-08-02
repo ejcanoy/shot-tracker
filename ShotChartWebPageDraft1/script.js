@@ -13,6 +13,9 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
+// loads google charts
+google.charts.load('current', {packages: ['corechart', 'line']});
+
 
 const database = firebase.database();
 const rootRef = database.ref('shot');
@@ -33,8 +36,16 @@ submitBtn.addEventListener('click', (e) => {
     shotsM: shotsMade.value,
     shotsA: shotsAttempted.value,
     shotsP: (shotsMade.value / shotsAttempted.value) * 100
+
+    totalRef.set({
+
+    })
   });
 });
+
+function calculateAvg() {
+
+}
 
 // when update button is clicked it updates the values for the chosen date
 // updateBtn.addEventListener('click', (e) => {
@@ -66,6 +77,11 @@ removeBtn.addEventListener('click', e => {
 const query = rootRef.orderByKey();
 let table = document.getElementById('table-body');
 query.on('value', function(dataSnapshot) {
+  drawTable(dataSnapshot);
+  drawChart(dataSnapshot);
+});
+
+function drawTable(dataSnapshot) {
   let totalMakes = 0;
   let totalAttempts = 0;
   const totalChildren = dataSnapshot.numChildren();
@@ -76,11 +92,11 @@ query.on('value', function(dataSnapshot) {
     totalMakes += Number(childData.shotsM);
     totalAttempts += Number(childData.shotsA);
     const row = `<tr>
-                <td>${key}</td>
-                <td>${childData.shotsM}</td>
-                <td>${childData.shotsA}</td>
-                <td>${childData.shotsP}</td>
-              </tr>`;
+                  <td>${key}</td>
+                  <td>${childData.shotsM}</td>
+                  <td>${childData.shotsA}</td>
+                  <td>${childData.shotsP}</td>
+                </tr>`;
 
     table.innerHTML += row;
   })
@@ -91,7 +107,7 @@ query.on('value', function(dataSnapshot) {
                     <td class="font-weight-bold">${(totalMakes / totalAttempts * 100).toFixed(2)}</th>
                   </tr>`
   table.innerHTML += avgRow;
-})
+}
 
 // var query = rootRef.orderByKey();
 // let table = document.getElementById('table-body');
@@ -120,10 +136,8 @@ query.on('value', function(dataSnapshot) {
 //   })
 // })
 
-// loads google charts
-google.charts.load('current', {packages: ['corechart', 'line']});
-
-query.on('value', function(dataSnapshot) {
+// Draws the charts
+function drawChart(dataSnapshot) {
   google.charts.setOnLoadCallback(drawBackgroundColor => {
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Date');
@@ -153,6 +167,6 @@ query.on('value', function(dataSnapshot) {
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
     chart.draw(data, options);
   });
-})
+}
 
 // Reminder: you need to put https://www.google.com/jsapi in the head of your document or as an external resource on codepen //
