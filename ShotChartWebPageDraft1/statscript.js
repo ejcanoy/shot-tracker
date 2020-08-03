@@ -9,10 +9,13 @@ var firebaseConfig = {
   appId: "1:688764008616:web:40a640dbf701882e646a9d",
   measurementId: "G-00727WZL57"
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
+// loads google charts
+google.charts.load('current', {packages: ['corechart', 'line']});
 
 const database = firebase.database();
 const rootRef = database.ref('shot');
@@ -25,10 +28,16 @@ const submitBtn = document.getElementById('submitBtn');
 const updateBtn = document.getElementById('updateBtn');
 const removeBtn = document.getElementById('removeBtn');
 
-// creates a table that displays all the saved past performances
+// Creates the table and the chart
 const query = rootRef.orderByKey();
 let table = document.getElementById('table-body');
 query.on('value', function(dataSnapshot) {
+  drawTable(dataSnapshot);
+  drawChart(dataSnapshot);;
+})
+
+// Draws the table
+function drawTable(dataSnapshot) {
   let totalMakes = 0;
   let totalAttempts = 0;
   const totalChildren = dataSnapshot.numChildren();
@@ -39,10 +48,10 @@ query.on('value', function(dataSnapshot) {
     totalMakes += Number(childData.shotsM);
     totalAttempts += Number(childData.shotsA);
     const row = `<tr>
-                <td>${key}</td>
+                <td>${timeConverter(key)}</td>
                 <td>${childData.shotsM}</td>
                 <td>${childData.shotsA}</td>
-                <td>${childData.shotsP}</td>
+                <td>${childData.shotsP.toFixed(2)}</td>
               </tr>`;
 
     table.innerHTML += row;
@@ -54,8 +63,21 @@ query.on('value', function(dataSnapshot) {
                     <td class="font-weight-bold">${(totalMakes / totalAttempts * 100).toFixed(2)}</th>
                   </tr>`
   table.innerHTML += avgRow;
-})
+}
 
+// converts the given key and returns a date time format
+function timeConverter(key) {
+  const date = key.substring(0,10);
+  let time = key.substring(11,16);
+  let headTime = time.substring(0,2);
+  let backTime = time.substring(2,5);
+  let amPm = "AM";
+  if (headTime > 12) {
+      headTime = headTime % 12;
+      amPm = "PM";
+  }
+  return date + " " + headTime + backTime + " " + amPm;
+}
 // var query = rootRef.orderByKey();
 // let table = document.getElementById('table-body');
 // const cells = ['shotsM', 'shotsA', 'shotsP']
@@ -83,10 +105,8 @@ query.on('value', function(dataSnapshot) {
 //   })
 // })
 
-// loads google charts
-google.charts.load('current', {packages: ['corechart', 'line']});
-
-query.on('value', function(dataSnapshot) {
+// Draws the charts
+function drawChart(dataSnapshot) {
   google.charts.setOnLoadCallback(drawBackgroundColor => {
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Date');
@@ -97,7 +117,7 @@ query.on('value', function(dataSnapshot) {
       const key = childSnapshot.key;
       const shotPercentage = childSnapshot.val().shotsP;
       const rowArray = new Array();
-      rowArray.push(key);
+      rowArray.push(timeConverter(key));
       rowArray.push(shotPercentage);
       data.addRow(rowArray);
     })
@@ -116,4 +136,14 @@ query.on('value', function(dataSnapshot) {
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
     chart.draw(data, options);
   });
-})
+}
+
+// function changeColor() {
+//   let color;
+//   if () {
+//
+//   } else if () {
+//
+//   }
+//
+// }

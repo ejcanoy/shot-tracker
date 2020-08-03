@@ -76,10 +76,10 @@ query.on('value', function(dataSnapshot) {
     totalMakes += Number(childData.shotsM);
     totalAttempts += Number(childData.shotsA);
     const row = `<tr>
-                <td>${key}</td>
+                <td>${timeConverter(key)}</td>
                 <td>${childData.shotsM}</td>
                 <td>${childData.shotsA}</td>
-                <td>${childData.shotsP}</td>
+                <td>${childData.shotsP.toFixed(2)}</td>
               </tr>`;
 
     table.innerHTML += row;
@@ -92,6 +92,20 @@ query.on('value', function(dataSnapshot) {
                   </tr>`
   table.innerHTML += avgRow;
 })
+
+// converts the given key and returns a date time format
+function timeConverter(key) {
+  const date = key.substring(0,10);
+  let time = key.substring(11,16);
+  let headTime = time.substring(0,2);
+  let backTime = time.substring(2,5);
+  let amPm = "AM";
+  if (headTime > 12) {
+      headTime = headTime % 12;
+      amPm = "PM";
+  }
+  return date + " " + headTime + backTime + " " + amPm;
+}
 
 // var query = rootRef.orderByKey();
 // let table = document.getElementById('table-body');
@@ -134,7 +148,7 @@ query.on('value', function(dataSnapshot) {
       const key = childSnapshot.key;
       const shotPercentage = childSnapshot.val().shotsP;
       const rowArray = new Array();
-      rowArray.push(key);
+      rowArray.push(timeConverter(key));
       rowArray.push(shotPercentage);
       data.addRow(rowArray);
     })
