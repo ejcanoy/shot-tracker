@@ -1,4 +1,4 @@
-@import "css/import-styles.css";
+/* @import "css/import-styles.css"; */
 
 header {
   background-color: white;
@@ -71,4 +71,11 @@ a:hover {
 .zone:hover {
   fill: #FEA400;
   cursor: pointer;
+}
+
+.zoneFreeThrow {
+  fill: #7A7A7A;
+  stroke: #2B2B2B;
+  stroke-width: 4;
+  stroke-miterlimit: 10;
 }

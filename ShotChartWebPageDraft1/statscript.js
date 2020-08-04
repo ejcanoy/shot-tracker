@@ -33,7 +33,8 @@ const query = rootRef.orderByKey();
 let table = document.getElementById('table-body');
 query.on('value', function(dataSnapshot) {
   drawTable(dataSnapshot);
-  drawChart(dataSnapshot);;
+  drawChart(dataSnapshot);
+  courtFill(51);
 })
 
 // Draws the table
@@ -77,6 +78,15 @@ function timeConverter(key) {
       amPm = "PM";
   }
   return date + " " + headTime + backTime + " " + amPm;
+}
+
+const freeThrowZone = document.getElementById('zoneFreeThrow');
+function courtFill(percentage) {
+  if (percentage > 50) {
+    freeThrowZone.style.fill = "red";
+  } else {
+    freeThrowZone.style.fill = "blue";
+  }
 }
 // var query = rootRef.orderByKey();
 // let table = document.getElementById('table-body');
