@@ -92,7 +92,7 @@ function drawTable(dataSnapshot) {
     totalMakes += Number(childData.shotsM);
     totalAttempts += Number(childData.shotsA);
     const row = `<tr>
-                  <td>${key}</td>
+                  <td>${timeConverter(key}</td>
                   <td>${childData.shotsM}</td>
                   <td>${childData.shotsA}</td>
                   <td>${childData.shotsP}</td>
