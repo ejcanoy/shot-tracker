@@ -34,8 +34,20 @@ let table = document.getElementById('table-body');
 query.on('value', function(dataSnapshot) {
   drawTable(dataSnapshot);
   drawChart(dataSnapshot);
-  courtFill(51);
+  courtFill(averageFinder(dataSnapshot));
 })
+
+function averageFinder(dataSnapshot) {
+  let totalMakes = 0;
+  let totalAttempts = 0;
+  dataSnapshot.forEach(function(childSnapshot) {
+    const key = childSnapshot.key;
+    const childData = childSnapshot.val();
+    totalMakes += Number(childData.shotsM);
+    totalAttempts += Number(childData.shotsA);  ``
+  })
+  return totalMakes / totalAttempts * 100;
+}
 
 // Draws the table
 function drawTable(dataSnapshot) {
@@ -80,6 +92,7 @@ function timeConverter(key) {
   return date + " " + headTime + backTime + " " + amPm;
 }
 
+// fills the freethrow zone based on shooting percentage
 const freeThrowZone = document.getElementById('zoneFreeThrow');
 function courtFill(percentage) {
   if (percentage > 50) {

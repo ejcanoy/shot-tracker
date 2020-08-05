@@ -79,3 +79,8 @@ a:hover {
   stroke-width: 4;
   stroke-miterlimit: 10;
 }
+
+.zoneFreeThrow:hover {
+  fill: #FEA400;
+  cursor: pointer;
+}
