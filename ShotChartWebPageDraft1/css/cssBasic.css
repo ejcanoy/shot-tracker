@@ -50,6 +50,10 @@ a:hover {
 
 /* court things */
 
+svg {
+    z-index: -1;
+}
+
 .courtbg {
   background: #2B2B2B;
 }
@@ -83,4 +87,8 @@ a:hover {
 .zoneFreeThrow:hover {
   fill: #FEA400;
   cursor: pointer;
+}
+
+.zonePercentage {
+  z-index:
 }

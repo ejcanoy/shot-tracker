@@ -104,9 +104,15 @@ function timeConverter(key) {
       headTime = headTime % 12;
       amPm = "PM";
   }
-  return date + " " + headTime + backTime + " " + amPm;
+  return dateConverter(date) + " " + headTime + backTime + " " + amPm;
 }
 
+function dateConverter(date) {
+  const year = date.substring(0,4)
+  const month = date.substring(5,7);
+  const day = date.substring(8,10);
+  return month + "/" + day + "/" + year;
+}
 // var query = rootRef.orderByKey();
 // let table = document.getElementById('table-body');
 // const cells = ['shotsM', 'shotsA', 'shotsP']
@@ -155,7 +161,7 @@ query.on('value', function(dataSnapshot) {
 
     var options = {
       hAxis: {
-        title: 'Time'
+        title: 'Date'
       },
       vAxis: {
         title: 'Shot Percentage'

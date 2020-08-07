@@ -30,13 +30,14 @@ const removeBtn = document.getElementById('removeBtn');
 
 // Creates the table and the chart
 const query = rootRef.orderByKey();
-let table = document.getElementById('table-body');
 query.on('value', function(dataSnapshot) {
   drawTable(dataSnapshot);
   drawChart(dataSnapshot);
   courtFill(averageFinder(dataSnapshot));
+  freeThrowPercentageText(dataSnapshot);
 })
 
+// Finds the average of the given dataSnapshot
 function averageFinder(dataSnapshot) {
   let totalMakes = 0;
   let totalAttempts = 0;
@@ -44,13 +45,14 @@ function averageFinder(dataSnapshot) {
     const key = childSnapshot.key;
     const childData = childSnapshot.val();
     totalMakes += Number(childData.shotsM);
-    totalAttempts += Number(childData.shotsA);  ``
+    totalAttempts += Number(childData.shotsA);
   })
   return totalMakes / totalAttempts * 100;
 }
 
 // Draws the table
 function drawTable(dataSnapshot) {
+  let table = document.getElementById('table-body');
   let totalMakes = 0;
   let totalAttempts = 0;
   const totalChildren = dataSnapshot.numChildren();
@@ -89,7 +91,15 @@ function timeConverter(key) {
       headTime = headTime % 12;
       amPm = "PM";
   }
-  return date + " " + headTime + backTime + " " + amPm;
+  return dateConverter(date) + " " + headTime + backTime + " " + amPm;
+}
+
+// converts the given date and returns a mm/dd/yyyy format
+function dateConverter(date) {
+  const year = date.substring(0,4)
+  const month = date.substring(5,7);
+  const day = date.substring(8,10);
+  return month + "/" + day + "/" + year;
 }
 
 // fills the freethrow zone based on shooting percentage
@@ -101,6 +111,15 @@ function courtFill(percentage) {
     freeThrowZone.style.fill = "blue";
   }
 }
+
+function freeThrowPercentageText(dataSnapshot) {
+  let courtSvg = document.getElementById('basketball');
+  const svgText = `<text x="630" y="630" font-family="havletica" font-size="50px" text-anchor="middle" fill="black">
+  ${averageFinder(dataSnapshot).toFixed(0) + "%"}</text>`;
+  courtSvg.innerHTML += svgText;
+}
+
+// <text x="630" y="630" font-family="sans-serif" font-size="20px" text-anchor="middle" fill="black">Hello!</text>
 // var query = rootRef.orderByKey();
 // let table = document.getElementById('table-body');
 // const cells = ['shotsM', 'shotsA', 'shotsP']
@@ -147,7 +166,7 @@ function drawChart(dataSnapshot) {
 
     var options = {
       hAxis: {
-        title: 'Time'
+        title: 'Date'
       },
       vAxis: {
         title: 'Shot Percentage'
@@ -160,13 +179,3 @@ function drawChart(dataSnapshot) {
     chart.draw(data, options);
   });
 }
-
-// function changeColor() {
-//   let color;
-//   if () {
-//
-//   } else if () {
-//
-//   }
-//
-// }
