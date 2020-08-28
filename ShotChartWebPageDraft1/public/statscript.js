@@ -12,7 +12,7 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+// firebase.analytics();
 
 // loads google charts
 google.charts.load('current', {packages: ['corechart', 'line']});

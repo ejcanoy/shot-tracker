@@ -11,7 +11,7 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+// firebase.analytics();
 
 
 const database = firebase.database();
@@ -79,8 +79,7 @@ query.on('value', function(dataSnapshot) {
                 <td>${timeConverter(key)}</td>
                 <td>${childData.shotsM}</td>
                 <td>${childData.shotsA}</td>
-                <td>${childData.shotsP.toFixed(2)}</td>
-              </tr>`;
+                <td>${childData.shotsP.toFixed(2)}</td>`;
 
     table.innerHTML += row;
   })
@@ -92,6 +91,24 @@ query.on('value', function(dataSnapshot) {
                   </tr>`
   table.innerHTML += avgRow;
 })
+// experiments
+function delRow(currElement) {
+     var parentRowIndex = currElement.parentNode.parentNode.rowIndex;
+     document.getElementById("myTable").deleteRow(parentRowIndex);
+}
+
+function insRow(id) {
+    var filas = document.getElementById("myTable").rows.length;
+    var x = document.getElementById(id).insertRow(filas);
+    var y = x.insertCell(0);
+    var z = x.insertCell(1);
+    y.innerHTML = '<input type="text" id="fname">';
+    z.innerHTML ='<button id="btn" name="btn" > Delete</button>';
+}
+// experiments
+
+
+
 
 // converts the given key and returns a date time format
 function timeConverter(key) {
